@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Location Manager
- * Plugin URI: https://danielrogers.info
+ * Plugin URI: http://danielrogers.info
  * Description: Location manager plugin
  * Author: Daniel Rogers
- * Author URI: https://danielrogers.info
+ * Author URI: http://danielrogers.info
  * Version: 1.0
 */
 add_action( 'init', 'location_post_type' );
@@ -41,7 +41,8 @@ function location_post_type() {
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
-		'menu_position'      => null,
+        'menu_position'      => null,
+        //Added support for custom fields
 		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' )
 	);
 
@@ -53,8 +54,9 @@ function prepend_location_data( $content ){
     if( is_singular('location')){
         //Assigns custom field of City to a variable 
         $city=get_post_meta(get_the_ID(), 'City', true);
+        //Assigns custom field of State to a variable
         $state=get_post_meta(get_the_ID(), 'State', true);
-
+        //Variable that controls the html output that is displayed
         $html=
         '
         <div class="location-meta">
